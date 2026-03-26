@@ -1,0 +1,26 @@
+<header class="fixed left-0 top-0 w-full bg-white shadow-md px-6 py-4 flex items-center justify-between">
+
+  <!-- Logo / Brand -->
+  <a routerLink="/" routerLinkActive="text-pink-600 font-semibold" [routerLinkActiveOptions]="{ exact: true }">
+    <div class="text-2xl font-bold text-pink-600">
+    NailedIt 
+  </div>
+  </a>
+
+  <!-- Navigation -->
+  <nav class="space-x-6 hidden md:block">
+
+    <a routerLink="/" routerLinkActive="text-pink-600 font-semibold" [routerLinkActiveOptions]="{ exact: true }" class="inline-flex text-gray-700 hover:text-pink-600 transition font-medium text-center underline underline-offset-4">
+      Home
+    </a>
+
+    <a routerLink="/preview" routerLinkActive="text-pink-600 font-semibold" class="inline-flex text-gray-700 hover:text-pink-600 font-medium text-center underline underline-offset-4">
+      Preview Nails
+    </a>
+
+    <a routerLink="/schedule" routerLinkActive="text-pink-600 font-semibold" class="inline-flex text-gray-700 hover:text-pink-600 font-medium text-center underline underline-offset-4">
+      Book Now
+    </a>
+
+  </nav>
+</header>

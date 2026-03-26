@@ -1,0 +1,111 @@
+<div class="min-h-screen bg-pink-50 flex items-center justify-center px-4 py-10">
+
+  <div class="w-full max-w-6xl grid md:grid-cols-2 gap-8">
+
+    <!-- 📅 Calendar -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-4">
+        <button (click)="changeMonth(-1)" class="text-pink-600 text-xl">←</button>
+        <h2 class="text-lg font-semibold text-pink-800">
+          {{ formatMonth() }}
+        </h2>
+        <button (click)="changeMonth(1)" class="text-pink-600 text-xl">→</button>
+      </div>
+
+      <!-- Days -->
+      <div class="grid grid-cols-7 text-center text-sm text-gray-500 mb-2">
+        <div *ngFor="let d of ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']">
+          {{ d }}
+        </div>
+      </div>
+
+      <!-- Calendar Grid -->
+      <div class="grid grid-cols-7 gap-2">
+        <div
+          *ngFor="let day of days"
+          (click)="selectDate(day)"
+          [ngClass]="{
+            'bg-pink-600 text-white': isSameDay(selectedDate, day),
+            'border border-pink-500': isToday(day),
+            'text-gray-300 cursor-not-allowed': isPast(day),
+            'hover:bg-pink-100 cursor-pointer': !isPast(day) && day.getTime() !== 0
+          }"
+          class="h-10 flex items-center justify-center rounded-lg transition"
+        >
+          {{ day.getTime() === 0 ? '' : day.getDate() }}
+        </div>
+      </div>
+
+      <!-- Selected Date -->
+      <div class="mt-4 text-pink-800">
+        <span *ngIf="selectedDate">
+          Selected: {{ selectedDate | date:'fullDate' }}
+        </span>
+      </div>
+
+      <!-- ⏰ Time Slots (EXPANDS AFTER DATE SELECTED) -->
+      <div *ngIf="selectedDate" class="mt-6 transition-all duration-300">
+
+        <h3 class="text-lg font-semibold text-pink-700 mb-3">
+          Available Times
+        </h3>
+
+        <div class="grid grid-cols-3 gap-3">
+          <button
+            *ngFor="let time of timeSlots"
+            (click)="selectTime(time)"
+            [ngClass]="{
+              'bg-pink-600 text-white': selectedTime === time,
+              'bg-white border border-pink-300 text-pink-700': selectedTime !== time
+            }"
+            class="p-2 rounded-lg text-sm font-medium hover:bg-pink-500 hover:text-white transition"
+          >
+            {{ time }}
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 📝 Form -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+
+      <h2 class="text-2xl font-bold text-pink-700 mb-6">
+        Your Details
+      </h2>
+
+      <div class="space-y-4">
+
+        <input type="text" placeholder="First Name" [(ngModel)]="firstName"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-500" />
+
+        <input type="text" placeholder="Last Name" [(ngModel)]="lastName"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-500" />
+
+        <input type="email" placeholder="Email" [(ngModel)]="email"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-500" />
+
+        <input type="tel" placeholder="Phone Number" [(ngModel)]="phone"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-500" />
+
+      </div>
+
+      <button
+        (click)="bookAppointment()"
+        class="mt-6 w-full bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition"
+      >
+        Confirm Booking
+      </button>
+
+      <a routerLink="/" class="block mt-4 text-center text-sm underline text-gray-600">
+        Back to Home
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
